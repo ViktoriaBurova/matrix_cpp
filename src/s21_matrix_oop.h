@@ -2,21 +2,21 @@
 #define SRC_S21_MATRIX_OOP_H_
 
 #include <iostream>
+#include <algorithm>
 #include <cstring>
 
 class S21Matrix {
     private:
         int rows_, cols_;
-        
-    public:
         double **matrix_;
+    public:
         S21Matrix();
         S21Matrix(int rows, int cols);
         S21Matrix(const S21Matrix& other);
-        S21Matrix(S21Matrix&& other);
+        S21Matrix(S21Matrix&& other) noexcept;
         ~S21Matrix();
 
-        bool EqMatrix(const S21Matrix& other);
+        bool EqMatrix(const S21Matrix& other) const;
         void SumMatrix(const S21Matrix& other);
         void SubMatrix(const S21Matrix& other);
         void MulNumber(const double num);
@@ -41,7 +41,8 @@ class S21Matrix {
         S21Matrix operator-=(const S21Matrix &other);
         S21Matrix operator*=(const S21Matrix &other);
         S21Matrix operator*=(const double num);
-
+        double operator()(int rows, int cols) const ;
+        double& operator()(int rows, int cols);
 };
 
 #endif  //  SRC_S21_MATRIX_OOP_H_

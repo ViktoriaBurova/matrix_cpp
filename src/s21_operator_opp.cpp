@@ -25,7 +25,16 @@ S21Matrix S21Matrix::operator*(const double num) {
 }
 
 S21Matrix S21Matrix::operator=(const S21Matrix &other) {
-
+    if (*this == other) {
+        return *this;
+    } else {
+        
+    }
+    // Remove();
+    // rows_ = other.getRows(), cols_ = other.getCols();
+    // Create();
+    // Copy(other);
+    // return *this;
 }
 
 bool S21Matrix::operator==(const S21Matrix &other) {
@@ -51,3 +60,13 @@ S21Matrix S21Matrix::operator*=(const double num) {
     this->MulNumber(num);
     return *this;
 }
+
+double S21Matrix::operator()(int rows, int cols) const {
+    // предусмотреть выход за границы матрицы
+    return matrix_[rows][cols];
+}
+
+double& S21Matrix::operator()(int rows, int cols) {
+    // предусмотреть выход за границы матрицы
+    return matrix_[rows][cols];
+}        

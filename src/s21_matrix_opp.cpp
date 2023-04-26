@@ -23,30 +23,16 @@ S21Matrix::S21Matrix(int rows, int cols) {
 }
 
 S21Matrix::S21Matrix(const S21Matrix& other) : S21Matrix(other.rows_, other.cols_) {
-        rows_ = other.rows_;
-        cols_ = other.cols_;
-        memcpy(matrix_, other.matrix_, other.rows_ * other.cols_ * sizeof(double));
+    *this = other;
+    rows_ = other.rows_;
+    cols_ = other.cols_;
+    memcpy(matrix_, other.matrix_, other.rows_ * other.cols_ * sizeof(double));
 }
 
-S21Matrix::S21Matrix(S21Matrix&& other) : S21Matrix(other) {
-    // if (other.rows_ > 0 && other.cols_ > 0) {
-    //     rows_ = other.rows_;
-    //     cols_ = other.cols_;
-    //     matrix_ = move(other.matrix_);
-    // }
-
-    // for (int i = 0; i < other.rows_; i++) {
-    //     delete[] other.matrix_[i];
-    // }
-    // delete[] other.matrix_;
-    // other.cols_ = 0;
-    // other.rows_ = 0;
-
-    // rows_ = other.rows_;
-    // cols_ = other.cols_;
-    // matrix_ = other.matrix_;
-    // other.rows_ = other.cols_ = 0;
-    // other.matrix_ = nullptr;
+S21Matrix::S21Matrix(S21Matrix&& other) noexcept {
+    std::swap(rows_, other.rows_);
+    std::swap(cols_, other.cols_);
+    std::swap(matrix_, other.matrix_);
 }
 
 S21Matrix::~S21Matrix() {
@@ -74,7 +60,7 @@ void S21Matrix::set_cols_(int cols) {
     cols_ = std::move(cols);
 }
 
-bool S21Matrix::EqMatrix(const S21Matrix& other) {
+bool S21Matrix::EqMatrix(const S21Matrix& other) const {
 
 }
 
