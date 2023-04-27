@@ -23,10 +23,13 @@ S21Matrix::S21Matrix(int rows, int cols) {
 }
 
 S21Matrix::S21Matrix(const S21Matrix& other) : S21Matrix(other.rows_, other.cols_) {
-    *this = other;
     rows_ = other.rows_;
     cols_ = other.cols_;
-    memcpy(matrix_, other.matrix_, other.rows_ * other.cols_ * sizeof(double));
+    for (int i = 0; i < rows_; i++) {
+        for (int j = 0; j < cols_; j++) {
+            matrix_[i][j] = other.matrix_[i][j];
+        }
+    }
 }
 
 S21Matrix::S21Matrix(S21Matrix&& other) noexcept {
@@ -38,25 +41,27 @@ S21Matrix::S21Matrix(S21Matrix&& other) noexcept {
 S21Matrix::~S21Matrix() {
     for (int i = 0; i < rows_; i++) {
         delete[] matrix_[i];
+        matrix_[i] = nullptr;
     }
     delete[] matrix_;
+    matrix_ = nullptr;
     cols_ = 0;
     rows_ = 0;
 }
 
-int S21Matrix::get_rows_() const {
+int S21Matrix::getRows() const {
     return rows_;
 }
 
-int S21Matrix::get_cols_() const {
+int S21Matrix::getCols() const {
     return cols_;
 }
 
-void S21Matrix::set_rows_(int rows) {
+void S21Matrix::setRows(int rows) {
     rows_ = std::move(rows);
 }
 
-void S21Matrix::set_cols_(int cols) {
+void S21Matrix::setCols(int cols) {
     cols_ = std::move(cols);
 }
 
@@ -65,7 +70,7 @@ bool S21Matrix::EqMatrix(const S21Matrix& other) const {
 }
 
 void S21Matrix::SumMatrix(const S21Matrix& other) {
-    if (rows_ == other.get_rows_() || cols_ == other.get_cols_()) {
+    if (rows_ == other.getRows() || cols_ == other.getCols()) {
         for (int i = 0; i < rows_; i++) {
             for (int j = 0; j < cols_; j++) {
                 matrix_[i][j] += other(i, j);
@@ -77,7 +82,7 @@ void S21Matrix::SumMatrix(const S21Matrix& other) {
 }
 
 void S21Matrix::SubMatrix(const S21Matrix& other) {
-    if (rows_ == other.get_rows_() || cols_ == other.get_cols_()) {
+    if (rows_ == other.getRows() || cols_ == other.getCols()) {
         for (int i = 0; i < rows_; i++) {
             for (int j = 0; j < cols_; j++) {
                 matrix_[i][j] -= other(i, j);

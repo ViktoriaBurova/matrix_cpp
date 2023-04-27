@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <algorithm>
-#include <cstring>
 
 class S21Matrix {
     private:
@@ -26,10 +25,10 @@ class S21Matrix {
         double Determinant();
         S21Matrix InverseMatrix();
 
-        int get_rows_() const;
-        int get_cols_() const;
-        void set_rows_(const int rows);
-        void set_cols_(const int cols);
+        int getRows() const;
+        int getCols() const;
+        void setRows(const int rows);
+        void setCols(const int cols);
 
         S21Matrix operator+(const S21Matrix &other);
         S21Matrix operator-(const S21Matrix &other);
