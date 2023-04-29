@@ -1,4 +1,4 @@
-G =gcc -lstdc++
+G =gcc -lstdc++ -std=c++17
 GCC =$(G) -Wall -Wextra -Werror -Wuninitialized
 LIBS =-lgtest 
 
